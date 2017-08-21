@@ -5,10 +5,7 @@
             "type": "chrome",
             "request": "launch",
             "name": "Launch Chrome against localhost",
-            "url": "D:/Code/Github/JavascriptExp/JavascriptExp/game.html",
-
-
-            
+            "url": "D:/Code/Github/JavascriptExp/game.html",
             "webRoot": "${workspaceRoot}"
         },
         {

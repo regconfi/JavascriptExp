@@ -6,25 +6,16 @@ var imageFromPath = function(path) {
     return img
 }
 
-var upDownRectIntersects = function(a, b) {
-    var o = a
-    if (b.y > o.y && b.y < o.y + o.image.height) {
-        return true
-    }
-    return false
-}
-
-var leftRightRectIntersects = function(a, b) {
-    var o = a
-    if (b.x > o.x && b.x < o.x + o.image.width) {
-        return true
-    }
-    return false
+var postionInRect = function (postion, rect) {
+    //log(postion, rect)
+    return (postion.x > rect.left && postion.x < rect.right && postion.y > rect.top && postion.y < rect.bottom)
 }
 
 var rectIntersects = function(a, b) {
-    if (UpDownrectIntersects(a, b) && LeftRightrectIntersects(a, b)) {
-        return true
+    if ((b.y + b.image.height > a.y && b.y + b.image.height < a.y + a.image.height) || (b.y > a.y && b.y < a.y + a.image.height)) {
+        if ((b.x + b.image.width > a.x && b.x + b.image.width < a.x + a.image.width) || (b.x > a.x && b.x < a.x + a.image.width)) {
+            return true
+        }
     }
     return false
-}
+} 

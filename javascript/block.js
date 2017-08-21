@@ -17,15 +17,5 @@ var Block = function(position) {
             o.alive = false
         }
     }
-    o.upDownCollide = function(b) {
-        return o.alive && (upDownRectIntersects(o, b) || upDownRectIntersects(b, o))
-    }
-    o.leftRightCollide = function(b) {
-        return o.alive && (leftRightRectIntersects(o, b) || leftRightRectIntersects(b, o))
-    }
-    o.collide = function(b) {
-        // log('block', o.alive, b)
-        return o.alive && (rectIntersects(o, b) || rectIntersects(b, o))
-    }
     return o
 }

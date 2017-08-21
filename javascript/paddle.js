@@ -5,43 +5,25 @@ var Paddle = function() {
         x: 100,
         y: 250,
         speed: 15,
+        speedDir: 1,
     }
     var paddle = o
     o.move = function(x) {
         if (x < 0) {
             x = 0
         }
-        if (x > 400 - o.image.width) {
-            x = 400 - o.image.width
+        if (x > 600 - o.image.width) {
+            x = 600 - o.image.width
         }
         o.x = x
     }
     o.moveLeft = function() {
-        o.move(paddle.x - paddle.speed)
+        paddle.speedDir = -1
+        o.move(o.x + o.speed * o.speedDir)
     }
     o.moveRight = function() {
-        o.move(paddle.x + paddle.speed)
-    }
-    o.upDownCollide = function(ball) {
-        if (ball.y + ball.image.height > o.y) {
-            //log('相撞')
-            return true
-        }
-        return false
-    }
-    o.leftRightCollide = function(ball) {
-        if (ball.x > o.x && ball.x < o.x + o.image.width) {
-            //log('相撞')
-            return true
-        }
-        return false
-    }
-    o.collide = function(ball) {
-        if (o.UpDowncollide(ball) && o.LeftRightcollide(ball)) {
-            //log('相撞')
-            return true
-        }
-        return false
+        o.speedDir = 1
+        o.move(o.x + o.speed * o.speedDir)
     }
     return o
 }

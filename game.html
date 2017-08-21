@@ -11,12 +11,12 @@
     <script src = './javascript/utils.js'></script>
     <script src = './javascript/guagame.js'></script>
     <script src = './javascript/paddle.js'></script>
-    <script src = './javascript/ball.js'></script>
     <script src = './javascript/block.js'></script>
+    <script src = './javascript/ball.js'></script>
     <script src = './javascript/level.js'></script>
 </head>
 <body>
-    <canvas id = "id-canvas" width="400" height="300"></canvas>
+    <canvas id = "id-canvas" width="600" height="400"></canvas>
     <hr>
     <input id = "id-input-speed" type = "range" value = "1">
 <script>
@@ -25,7 +25,7 @@ var loadLevel = function(n) {
     var level = levels[n]
     var blocks = []
     for (var i = 0; i < level.length; i++) {
-        var p = levels[i]
+        var p = level[i]
         var b = Block(p)
         blocks.push(b)
     }
@@ -81,20 +81,21 @@ var __main = function() {
             return
         }
         ball.move()
+        
         // 判断相撞
-        isUpDown = paddle.upDownCollide(ball)
-        isLeftRight = paddle.leftRightCollide(ball)
-        if (isUpDown || isLeftRight) {
-            ball.rebound(isUpDown, isLeftRight)
-        }
+        collide = ball.collide(paddle)
+        ball.rebound(collide[0], collide[1])
+        
         // 判断 ball 和 blocks 相撞
         for (var i = 0; i < blocks.length; i++) {
             var block = blocks[i]
-            isUpDown = block.upDownCollide(ball)
-            isLeftRight = block.leftRightCollide(ball)
-            if (isUpDown || isLeftRight) {
+            if (!block.alive) {
+                continue
+            }
+            collide = ball.collide(block)
+            ball.rebound(collide[0], collide[1])
+            if (collide[0] || collide[1]) {
                 block.kill()
-                ball.rebound(isUpDown, isLeftRight)
                 break
             }
         }
