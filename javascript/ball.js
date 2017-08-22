@@ -1,7 +1,8 @@
-var Ball = function() {
-    var image = imageFromPath('./image/ball.png')
+var Ball = function(game) {
+    var img = game.imageByName('ball')
+    //var image = imageFromPath('./image/ball.png')
     var o = {
-        image: image,
+        image: img.image,
         x: 100,
         y: 200,
         speedX: 5,
@@ -44,26 +45,26 @@ var Ball = function() {
     o.collide = function(block) {
         var collideBool = [0, 0]
         var rect = {
-            top : block.y,
-            bottom : block.y  + block.image.height,
-            left : block.x,
-            right : block.x + block.image.width,
+            top: block.y,
+            bottom: block.y + block.image.height,
+            left: block.x,
+            right: block.x + block.image.width,
         }
         var leftTop = {
-            x : o.x,
-            y : o.y,
+            x: o.x,
+            y: o.y,
         }
         var rightTop = {
-            x : o.x + o.image.width,
-            y : o.y,
+            x: o.x + o.image.width,
+            y: o.y,
         }
         var leftBottom = {
-            x : o.x,
-            y : o.y  + o.image.height,
+            x: o.x,
+            y: o.y  + o.image.height,
         }
         var rightBottom = {
-            x : o.x + o.image.width,
-            y : o.y  + o.image.height,
+            x: o.x + o.image.width,
+            y: o.y + o.image.height,
         }
         if (rectIntersects(o, block) || rectIntersects(block, o)) {
             if (postionInRect(leftTop, rect) && postionInRect(leftBottom, rect)) {
@@ -75,9 +76,9 @@ var Ball = function() {
             } else if (postionInRect(leftBottom, rect) && postionInRect(rightBottom, rect)) {
                 collideBool[1] = -1
             }
-            log (collideBool)
+            //log (collideBool)
             if (collideBool[0] === 0 && collideBool[1] === 0) {
-                log(leftTop, leftBottom, rightTop, rightBottom, rect)
+                //log(leftTop, leftBottom, rightTop, rightBottom, rect)
                 if (postionInRect(leftTop, rect)) {
                     collideBool[0] = 1
                     collideBool[1] = 1
@@ -92,7 +93,7 @@ var Ball = function() {
                     collideBool[1] = -1
                 }
             }
-            log (collideBool)
+            //log (collideBool)
         }
         return collideBool
     }
@@ -101,6 +102,11 @@ var Ball = function() {
             o.speedXDir = xChange
         if (yChange != 0)
             o.speedYDir = yChange
+    }
+    o.hasPoint = function(x, y) {
+        var xIn = x >= o.x && x <= o.x + o.image.width
+        var yIn = y >= o.y && y <= o.y + o.image.height
+        return xIn && yIn
     }
     return o
 }
