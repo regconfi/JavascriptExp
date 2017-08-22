@@ -83,7 +83,7 @@ var __main = function() {
         ball.move()
         
         // 判断相撞
-        collide = ball.collide(paddle)
+        var collide = ball.collide(paddle)
         ball.rebound(collide[0], collide[1])
         
         // 判断 ball 和 blocks 相撞
@@ -92,9 +92,9 @@ var __main = function() {
             if (!block.alive) {
                 continue
             }
-            collide = ball.collide(block)
+            var collide = ball.collide(block)
             ball.rebound(collide[0], collide[1])
-            if (collide[0] || collide[1]) {
+            if (collide[0] != 0 || collide[1] != 0) {
                 block.kill()
                 break
             }

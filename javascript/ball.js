@@ -42,7 +42,7 @@ var Ball = function() {
         }
     }
     o.collide = function(block) {
-        collideBool = [0, 0]
+        var collideBool = [0, 0]
         var rect = {
             top : block.y,
             bottom : block.y  + block.image.height,
@@ -51,7 +51,7 @@ var Ball = function() {
         }
         var leftTop = {
             x : o.x,
-            y : block.y,
+            y : o.y,
         }
         var rightTop = {
             x : o.x + o.image.width,
@@ -69,26 +69,27 @@ var Ball = function() {
             if (postionInRect(leftTop, rect) && postionInRect(leftBottom, rect)) {
                 collideBool[0] = -1
             } else if (postionInRect(rightTop, rect) && postionInRect(rightBottom, rect)) {
-                collideBool[0] = 1
+                collideBool[0] = -1
             } else if (postionInRect(leftTop, rect) && postionInRect(rightTop, rect)) {
                 collideBool[1] = 1
             } else if (postionInRect(leftBottom, rect) && postionInRect(rightBottom, rect)) {
                 collideBool[1] = -1
             }
+            log (collideBool)
             if (collideBool[0] === 0 && collideBool[1] === 0) {
                 log(leftTop, leftBottom, rightTop, rightBottom, rect)
                 if (postionInRect(leftTop, rect)) {
                     collideBool[0] = 1
-                    collideBool[1] = -1
+                    collideBool[1] = 1
                 } else if (postionInRect(rightTop, rect)) {
-                    collideBool[0] = 1
-                    collideBool[1] = -1
-                } else if (postionInRect(leftBottom, rect)) {
                     collideBool[0] = -1
                     collideBool[1] = 1
-                } else if (postionInRect(rightBottom, rect)) {
+                } else if (postionInRect(leftBottom, rect)) {
                     collideBool[0] = 1
-                    collideBool[1] = 1
+                    collideBool[1] = -1
+                } else if (postionInRect(rightBottom, rect)) {
+                    collideBool[0] = -1
+                    collideBool[1] = -1
                 }
             }
             log (collideBool)
